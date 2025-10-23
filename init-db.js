@@ -2,10 +2,10 @@ const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
 
 const pool = new Pool({
-  user: process.env.PG_USER,
-  host: process.env.PG_HOST,
-  database: process.env.PG_DB,
-  password: process.env.PG_PASSWORD,
+  user: 'postgres',           // tal como definiste en docker run
+  host: 'mi_postgres',        // 👈 nombre del contenedor de PostgreSQL
+  database: 'miweb',          // tal como definiste en docker run
+  password: '1234',            // tal como definiste en docker run
   port: 5432,
 });
 

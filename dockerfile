@@ -1,19 +1,12 @@
-FROM node:22
+FROM node:18
 
-# Dependencias del sistema necesarias para compilar better-sqlite3
-RUN apt-get update && apt-get install -y python3 g++ make && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
 
-WORKDIR /usr/src/app
-
-# Copiamos package.json y package-lock.json
 COPY package*.json ./
-
-# Instalamos todas las dependencias (dev incluidas)
 RUN npm install
 
-# Copiamos el resto del proyecto
 COPY . .
 
-EXPOSE 5000
+EXPOSE 3000
 
 CMD ["npm", "start"]

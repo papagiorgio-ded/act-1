@@ -7,11 +7,11 @@ const app = express();
 const port = 3000;
 
 // Configuración de la base de datos PostgreSQL
-const db = new Pool({
-  user: process.env.PG_USER,
-  host: process.env.PG_HOST,
-  database: process.env.PG_DB,
-  password: process.env.PG_PASSWORD,
+const pool = new Pool({
+  user: 'postgres',           
+  host: 'mi_postgres',        
+  database: 'miweb',          
+  password: '1234',            
   port: 5432,
 });
 
