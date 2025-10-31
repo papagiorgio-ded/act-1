@@ -1,0 +1,18 @@
+FROM node:22
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+# Variables para conectar con el contenedor de PostgreSQL
+ENV PG_USER=postgres
+ENV PG_PASSWORD=1234
+ENV PG_DB=miweb
+ENV PG_HOST=mi_postgres
+ENV PG_PORT=5432
+
+EXPOSE 3000
+CMD ["npm", "start"]
