@@ -1,0 +1,8 @@
+FROM postgres:latest
+
+# Variables de entorno para la BD
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=1234
+ENV POSTGRES_DB=miweb
+
+EXPOSE 5432
