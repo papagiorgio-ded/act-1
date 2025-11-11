@@ -5,4 +5,8 @@ ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=1234
 ENV POSTGRES_DB=miweb
 
+
+
+VOLUME ["/var/lib/postgresql/data"]
+
 EXPOSE 5432

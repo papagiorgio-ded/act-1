@@ -2,12 +2,15 @@ const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
 
 const pool = new Pool({
-  user: 'postgres',           // tal como definiste en docker run
-  host: 'mi_postgres',        // 👈 nombre del contenedor de PostgreSQL
-  database: 'miweb',          // tal como definiste en docker run
-  password: '1234',            // tal como definiste en docker run
+  user: 'postgres',
+  host: 'mi_postgres_persistente', 
+  database: 'miweb',
+  password: '1234',
   port: 5432,
 });
+
+
+
 
 async function init() {
   const client = await pool.connect();

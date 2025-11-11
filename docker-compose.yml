@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  db:
+    build: ./bbdd
+    container_name: mi_postgres_persistente
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: miweb
+    volumes:
+      - datos_postgres_v2:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    networks:
+      - mi_red
+
+  app:
+    build: ./app
+    container_name: mi_app_node
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: 1234
+      DB_NAME: miweb
+    networks:
+      - mi_red
+
+networks:
+  mi_red:
+
+volumes:
+  datos_postgres_v2:

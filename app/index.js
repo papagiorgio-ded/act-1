@@ -9,7 +9,7 @@ const port = 3000;
 // Configuración de la base de datos PostgreSQL
 const pool = new Pool({
   user: 'postgres',           
-  host: 'mi_postgres',        
+  host: 'mi_postgres_persistente',        
   database: 'miweb',          
   password: '1234',            
   port: 5432,
@@ -56,6 +56,22 @@ app.get('/login', (req, res) => {
   });
 });
 
+app.post('/register', async (req, res) => {
+  const { username, password, role } = req.body;
+
+  try {
+    const hashed = await bcrypt.hash(password, 10);
+    await pool.query(
+      'INSERT INTO usersdb (username, password, role) VALUES ($1, $2, $3)',
+      [username, hashed, role || 'user']
+    );
+    res.status(201).json({ message: 'Usuario creado con éxito' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al crear usuario' });
+  }
+});
+
 // Logout
 app.get('/logout', (req, res) => {
   res.clearCookie('user');
@@ -86,7 +102,8 @@ app.post('/login', async (req, res) => {
   const { user, password } = req.body;
 
   try {
-    const result = await db.query('SELECT * FROM usersdb WHERE username = $1', [user]);
+    const result = await pool.query('SELECT * FROM usersdb WHERE username = $1', [user]);
+
     const userdb = result.rows[0];
 
     if (userdb && bcrypt.compareSync(password, userdb.password)) {
